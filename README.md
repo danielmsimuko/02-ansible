@@ -1,4 +1,4 @@
-# STUDY-NOTES-Ansible
+# o2-Learning Ansible
 For Mastery of Ansible and all things server config management. You describe the end-state and ansible gets you there. The most common use for ansible is making sure all servers that are doing the same thing, are configured the same way. 
 
 ## Why Ansiblle 
