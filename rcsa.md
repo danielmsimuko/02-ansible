@@ -14,6 +14,8 @@ Documentation via terminal can be accessed using following commands:
 
 ## Core Components of Ansible 
 
+`$ ansible-config` command can be used to view configurations with `list` giving you all config options, `dump` dumping the config into the console and `view` to view the config
+
 ### Inventories
 
 Inventory files are the files ansbile uses to locate and run against multiple hosts
@@ -47,6 +49,8 @@ Provide information about a given target hosts. They are automatically discovere
 ### Plays and Playbooks 
 
 A playbook consists of one or more tasks which make calls to ansible modules. A playbook can have a series of plays/instructions for which ansible will then ssh to the control nodes and action. These playbooks can be written in yaml or ini file. 
+
+
 
 [//]: * (Links Section)
 
