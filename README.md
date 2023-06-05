@@ -1,4 +1,4 @@
-# o2-Learning Ansible
+# 02-Learning Ansible
 For Mastery of Ansible and all things server config management. You describe the end-state and ansible gets you there. The most common use for ansible is making sure all servers that are doing the same thing, are configured the same way. 
 
 ## Why Ansiblle 
@@ -23,5 +23,43 @@ With server builds defined by code, the speed of deployments go up.
 `$ ansible all -m ping` connects to all servers in the inventory file. You should see success
 
 `$ ansible all --lists-hosts` shows us all the hosts in the all inventory 
+
+`$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
+
+### How it works 
+
+Modules are the backbone of ansible -  they are the ones doing the work 
+
+Playbooks are comparable to bash scripts but more powerful and more customisable 
+
+In general, changes only happen once regardless of the number of times its run. This is called idempotency. 
+
+It is agentless. Does not require any additional software since it only requires SSH to connect and manage softwares 
+
+### Modules 
+
+Modules have different flags and variables that should be set to do their job
+
+`ansible-doc <modulename>` command can be used to get more info on modules 
+
+For Example `ansible-doc --l | grep docker` lists all the docker modules available to use 
+
+modules should be idempotent and return JSON data
+
+### Ansible Ad-Hoc Commands 
+
+Ad-Hoc commands are useful for one of tasks such as rebooting serverd, gathering facts on servers and more. 
+
+Dissecting the command 
+
+`ansible [pattern] -m modulename -a "module option"` is the format for ansible commands 
+
+An example below: 
+
+`ansible all -m service -a "name=firewalld state=started" -b` started the firewalld service
+
+
+
+
 
 
