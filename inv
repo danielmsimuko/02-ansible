@@ -12,6 +12,30 @@ Documentation via terminal can be accessed using following commands:
 
 `$ ansible-doc -s module_name` shows only a snipped of the module doc but still lists the parameters and what they do
 
+## Core Components of Ansible 
+
+### Inventories
+
+Inventory files are the files ansbile uses to locate and run against multiple hosts
+
+The default location of hosts file is: 
+
+`$ /etc/ansible/hosts`
+
+and the default location of the hosts file can be set in 
+
+`$ /etc/ansible/ansible.cfg`
+
+You can have a .yml based inventory file or a .ini file
+
+### Modules 
+
+
+### Variables 
+
+
+
+
 [//]: * (Links Section)
 
 [Ansible Documentation]: <https://docs.ansible.com/ansible/latest/getting_started/index.html>
