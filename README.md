@@ -58,8 +58,51 @@ An example below:
 
 `ansible all -m service -a "name=firewalld state=started" -b` started the firewalld service
 
+### Ansible playbooks 
 
+Are essentially bash scripts for ansible. Using modules within a playbook, you can declare and configure or spell out steps that must be taken including between multiple server or sets of servers. 
 
+Here is a simple nginx installation playbook. It is a yaml file
 
+ ```
+ hosts: all 
+ become: yes
+ tasks: 
+    - name: install nginx
+      yum :
+         name: nginx 
+         state: latest 
+    - name: start the service 
+      service: 
+         name: nginx
+         state: started
+```
 
+Once the playbook is saved, you can run `ansible-playbook name.yml` to start the playbook. 
+
+Here is an example playbook to install and configure apache on a server
+
+```
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: latest
+    - name: git checkout the website
+      git:
+        dest: /var/www/html
+        repo: https://github.com/linuxacademy/content-introduction-to-ansible.git
+    - name: Start the Apache service
+      service:
+        name: httpd
+        state: started
+    - name: Open the firewall ports
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+  ```
+  
 
