@@ -100,31 +100,6 @@ Here is an example playbook to install and configure apache on a server
         permanent: yes
         state: enabled
   ```
-## Installation 
-
-To install Ansible from source, the 
-
-````
-$ sudo yum install git
-
-$ git clone github.com/ansible`
-
-cd ansible/ 
-
-source ./hacking/env-setup 
-
-pip2.7 linstall --user 0r ./requirements. txt
-
-````
-
-To the insulation it is `ansible 127.0.0.1 -m ping `
-
-To install Ansible using yum package manager: 
-
-`$ sudo subscription -manager repos --enable ansible-2.8-for-rhel-8-x86_64-rpms`
-
-`$ sudo yum install ansbile` installs ansible on your redhat based system 
-
 ### More commands
 
 `$ ansible --version` allows you to check which ansible version you currently have 
