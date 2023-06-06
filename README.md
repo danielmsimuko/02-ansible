@@ -49,9 +49,7 @@ For Example `ansible-doc --l | grep docker` lists all the docker modules availab
 Variable are strings of letters, numbers and underscores that will store configuration values and parameters what we will be working with. Three main scopes for variables are:
 - Global 
 - Hosts 
-- Play 
-
-A good 
+- Play
 
 ### Facts 
 
@@ -103,10 +101,10 @@ Here is an example playbook to install and configure apache on a server
         state: enabled
   ```
 ## Installation 
- 
- To install Ansible from source, the 
 
-```
+To install Ansible from source, the 
+
+````
 $ sudo yum install git
 
 $ git clone github.com/ansible`
