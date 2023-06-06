@@ -1,5 +1,15 @@
 # 02-Learning Ansible
-For Mastery of Ansible and all things server config management. You describe the end-state and ansible gets you there. The most common use for ansible is making sure all servers that are doing the same thing, are configured the same way. 
+For Mastery of Ansible and all things server config management. 
+
+## What is Ansible and How does it work 
+
+Modules are the backbone of ansible -  they are the ones doing the work 
+
+Playbooks are comparable to bash scripts but more powerful and more customisable 
+
+In general, changes only happen once regardless of the number of times its run. This is called idempotency. 
+
+It is agentless. Does not require any additional software since it only requires SSH to connect and manage softwares 
 
 ## Why Ansiblle 
 
@@ -12,31 +22,41 @@ Putting policy into code and then applying that code to servers allows for compl
 ### Rapid Deployment 
 With server builds defined by code, the speed of deployments go up. 
 
-### Installation 
+## Documentation 
 
-`$ sudo yum install ansbile` installs ansible on your redhat based system 
+Online documentation can be found here: [Ansible Documentation] 
 
-`$ ansible --version` allows you to check which ansible version you currently have 
+Documentation via terminal can be accessed using following commands: 
 
-`$ sudo vim /etc/ansible/hosts` sets up the default ansible hosts file 
+`$ ansible-doc (-h)` is the documentation tool for plugins and modules. `-h` can be added for help with `-l` being the list option
 
-`$ ansible all -m ping` connects to all servers in the inventory file. You should see success
+`$ ansible-doc module_name` shows documentation for a module 
 
-`$ ansible all --lists-hosts` shows us all the hosts in the all inventory 
+`$ ansible-doc -s module_name` shows only a snipped of the module doc but still lists the parameters and what they do
 
-`$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
+## Core Components of Ansible 
 
-### How it works 
+`$ ansible-config` command can be used to view configurations with `list` giving you all config options, `dump` dumping the config into the console and `view` to view the config
 
-Modules are the backbone of ansible -  they are the ones doing the work 
+### Inventories
 
-Playbooks are comparable to bash scripts but more powerful and more customisable 
+Inventory files are the files ansbile uses to locate and run against multiple hosts
 
-In general, changes only happen once regardless of the number of times its run. This is called idempotency. 
+The default location of hosts file is: 
 
-It is agentless. Does not require any additional software since it only requires SSH to connect and manage softwares 
+`$ /etc/ansible/hosts`
+
+and the default location of the hosts file can be set in 
+
+`$ /etc/ansible/ansible.cfg`
+
+You can have a .yml based inventory file or a .ini file
 
 ### Modules 
+
+Modules are tools for a particular tasks. They can take parameters and return JSON notation. 
+
+They can be run from the command line or within a playbook and ansible comes with a significant amout of default modules as standard
 
 Modules have different flags and variables that should be set to do their job
 
@@ -46,19 +66,20 @@ For Example `ansible-doc --l | grep docker` lists all the docker modules availab
 
 modules should be idempotent and return JSON data
 
-### Ansible Ad-Hoc Commands 
+### Variables 
 
-Ad-Hoc commands are useful for one of tasks such as rebooting serverd, gathering facts on servers and more. 
+Variable are strings of letters, numbers and underscores that will store configuration values and parameters what we will be working with. Three main scopes for variables are:
+- Global 
+- Hosts 
+- Play 
 
-Dissecting the command 
+### Facts 
 
-`ansible [pattern] -m modulename -a "module option"` is the format for ansible commands 
+Provide information about a given target hosts. They are automatically discovered by Ansible when it reaches out to another node/host but can be disabled within the config file or be cached for use in a playbook execution 
 
-An example below: 
+### Plays and Playbooks 
 
-`ansible all -m service -a "name=firewalld state=started" -b` started the firewalld service
-
-### Ansible playbooks 
+A playbook consists of one or more tasks which make calls to ansible modules. A playbook can have a series of plays/instructions for which ansible will then ssh to the control nodes and action. These playbooks can be written in yaml or ini file. 
 
 Are essentially bash scripts for ansible. Using modules within a playbook, you can declare and configure or spell out steps that must be taken including between multiple server or sets of servers. 
 
@@ -105,4 +126,19 @@ Here is an example playbook to install and configure apache on a server
         state: enabled
   ```
   
+## Installation 
+
+`$ sudo yum install ansbile` installs ansible on your redhat based system 
+
+`$ ansible --version` allows you to check which ansible version you currently have 
+
+`$ sudo vim /etc/ansible/hosts` sets up the default ansible hosts file 
+
+`$ ansible all -m ping` connects to all servers in the inventory file. You should see success
+
+`$ ansible all --lists-hosts` shows us all the hosts in the all inventory 
+
+`$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
+
+
 
