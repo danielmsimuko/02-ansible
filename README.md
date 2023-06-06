@@ -1,44 +1,24 @@
 # 02-Learning Ansible
-For Mastery of Ansible and all things server config management. 
-
-## What is Ansible and How does it work 
-
-Modules are the backbone of ansible -  they are the ones doing the work 
-
-Playbooks are comparable to bash scripts but more powerful and more customisable 
-
-In general, changes only happen once regardless of the number of times its run. This is called idempotency. 
-
-It is agentless. Does not require any additional software since it only requires SSH to connect and manage softwares 
+For Mastery of Ansible and all things server configuration management. 
 
 ## Why Ansiblle 
+>Security
 
-### Security
 Consistency of configuration leads to a more secure environment. Integrated security policies will improve ability to scan and remediate issues
 
-### Compliance 
+>Compliance 
+
 Putting policy into code and then applying that code to servers allows for compliance throughout datacentres. Rather than have an individual touch 500 servers, one code does it all.  
 
-### Rapid Deployment 
-With server builds defined by code, the speed of deployments go up. 
+>Rapid Deployment
 
-## Documentation 
-
-Online documentation can be found here: [Ansible Documentation] 
-
-Documentation via terminal can be accessed using following commands: 
-
-`$ ansible-doc (-h)` is the documentation tool for plugins and modules. `-h` can be added for help with `-l` being the list option
-
-`$ ansible-doc module_name` shows documentation for a module 
-
-`$ ansible-doc -s module_name` shows only a snipped of the module doc but still lists the parameters and what they do
+With server builds defined by code, the speed of deployments go up.
 
 ## Core Components of Ansible 
 
 `$ ansible-config` command can be used to view configurations with `list` giving you all config options, `dump` dumping the config into the console and `view` to view the config
 
-### Inventories
+#### Inventories
 
 Inventory files are the files ansbile uses to locate and run against multiple hosts
 
@@ -64,14 +44,14 @@ Modules have different flags and variables that should be set to do their job
 
 For Example `ansible-doc --l | grep docker` lists all the docker modules available to use 
 
-modules should be idempotent and return JSON data
-
 ### Variables 
 
 Variable are strings of letters, numbers and underscores that will store configuration values and parameters what we will be working with. Three main scopes for variables are:
 - Global 
 - Hosts 
 - Play 
+
+A good 
 
 ### Facts 
 
@@ -84,7 +64,6 @@ A playbook consists of one or more tasks which make calls to ansible modules. A 
 Are essentially bash scripts for ansible. Using modules within a playbook, you can declare and configure or spell out steps that must be taken including between multiple server or sets of servers. 
 
 Here is a simple nginx installation playbook. It is a yaml file
-
  ```
  hosts: all 
  become: yes
@@ -98,11 +77,9 @@ Here is a simple nginx installation playbook. It is a yaml file
          name: nginx
          state: started
 ```
-
 Once the playbook is saved, you can run `ansible-playbook name.yml` to start the playbook. 
 
 Here is an example playbook to install and configure apache on a server
-
 ```
 - hosts: all
   become: yes
@@ -125,7 +102,6 @@ Here is an example playbook to install and configure apache on a server
         permanent: yes
         state: enabled
   ```
-  
 ## Installation 
 
 `$ sudo yum install ansbile` installs ansible on your redhat based system 
@@ -140,5 +116,16 @@ Here is an example playbook to install and configure apache on a server
 
 `$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
 
+## Documentation 
 
+Online documentation can be found here: [Ansible Documentation] 
 
+Documentation via terminal can be accessed using following commands: 
+
+`$ ansible-doc (-h)` is the documentation tool for plugins and modules. `-h` can be added for help with `-l` being the list option
+
+`$ ansible-doc module_name` shows documentation for a module 
+
+`$ ansible-doc -s module_name` shows only a snipped of the module doc but still lists the parameters and what they do
+
+s 
