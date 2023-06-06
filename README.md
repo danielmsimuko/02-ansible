@@ -124,4 +124,6 @@ Documentation via terminal can be accessed using following commands:
 
 `$ ansible-doc -s module_name` shows only a snipped of the module doc but still lists the parameters and what they do
 
-s 
+[//]: * (Links Section)
+
+[Ansible Documentation]: <https://docs.ansible.com/ansible/latest/getting_started/index.html>
