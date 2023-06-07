@@ -1,6 +1,40 @@
 # RedHat Certified Engineer 8 - Ansible Notes
 
-## General Commands 
+## installation
+
+Check python installation and verify
+
+    1. python3 -m pip V 
+    2. sudo yum install python3
+
+Install ansible using pip
+    
+    3  python3 -m pip install --user ansible -- install ansible
+    
+If you incur an error saying: 
+
+`Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-8k3oiucm/cryptography/`
+
+The fix for the error is: 
+	
+    3.1 sudo python3 -m pip install -U pip   
+    3.2 sudo python3 -m pip install -U setuptools
+
+If ansible is already available on host, an upgrade is available 
+
+    4. python3 -m pip install --upgrade --user ansible
+
+## Commands
+
+`$ ansible --version` allows you to check which ansible version you currently have 
+
+`$ sudo vim /etc/ansible/hosts` sets up the default ansible hosts file 
+
+`$ ansible all -m ping` connects to all servers in the inventory file. You should see success
+
+`$ ansible all --lists-hosts` shows us all the hosts in the all inventory 
+
+`$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
 
 `ansible -m setup --tree /dir/dir localhost` generates a list of facts about the host
 
@@ -54,7 +88,3 @@ Output:
     ]
 }
 ```
-
-[//]: * (Links Section)
-
-[Ansible Documentation]: <https://docs.ansible.com/ansible/latest/getting_started/index.html>
