@@ -1,8 +1,9 @@
 ## Node setup Excercise
 
-You have given a host machine and three nodes to set up and test connection. webserver, dbserver, adminserver and control called server1.
+You have been given a host machine and three nodes to set up. Ansible is installed on host machine and nodes have been DNS'd so are named WebServer1, DBServer1 and AdminServer1.
+These are the steps I followed:
 
-1. SSH into Server1
+1. SSH into host Server1
 
 `# ssh cloud_user@3.236.114.240`
 
@@ -10,12 +11,11 @@ You have given a host machine and three nodes to set up and test connection. web
 
 `# sudo -i`
 
-3. Check ansible installation + edit hosts file 
+3. Check Ansible Installation + edit hosts file 
 
 `# vim /etc/ansible/hosts`
 
-4. Edit the file to include webservers 
-
+4. Edit the file to include nodes 
 ```
 [webservers]
 WebServer1
@@ -36,25 +36,20 @@ AdminServer1
 Number of key(s) added: 1
 ```
 7. Connect to DBServer1 and continue process
-
 ```
 `# ssh-copy-id ansible@DBServer1`
 Number of key(s) added: 1
 ```
-
 8. Connect to AdminServer1 and finish process
-
 ```
 `# ssh-copy-id ansible@DAdminServer1`
 Number of key(s) added: 1
 ```
-
-9. Try to ping the servers
+9. Try to ping the servers and read JSON output
 
 `# ansible all -m ping --become`
 
-Read JSON output
-
+Output: 
 ```
 WebServer1 | FAILED! => {
     "msg": "Missing sudo password"
@@ -66,16 +61,12 @@ DBServer1 | FAILED! => {
     "msg": "Missing sudo password"
 }
 ```
-
 10. Troubleshoot by giving unrestricted access to servers via sudoers file
-
 ```
 `# ssh cloud_user@WebServer1`
 `$ sudo visudo
 ```
-
 11. Edit file by:
-
 ```
 ansible		ALL=(ALL)		NOPASSWD: ALL
 ```
@@ -84,9 +75,7 @@ ansible		ALL=(ALL)		NOPASSWD: ALL
 13. Re-Run ping command to validate connection to nodes
 
 `# ansible all -m ping --become`
-
 14. Validate successful ping from JSON output
-
 ```
 AdminServer1 | SUCCESS => {
     "ansible_facts": {
@@ -110,3 +99,5 @@ DBServer1 | SUCCESS => {
     "ping": "pong"
 }
 ```
+
+Futher study: Imagine you now have not just three nodes, but 50. how do you get that file out to all of them and how do you edit sudoers for all 50
