@@ -1,19 +1,20 @@
-# Node setup 
-scenario: You have given host and nodes to setup ansible and test connection
-host: 
-nodes: 3 servers to setup, webserver, dbserver, adminserver 
+## Node setup Excercise
 
->PS C:\Users\daniel.msimuko> ssh cloud_user@3.236.114.240
->Password:
+You have given a host machine and three nodes to set up and test connection. webserver, dbserver, adminserver and control called server1.
 
-become root 
+1. SSH into Server1
 
-[root@Server1 ~]# cd /etc/ansible
-[root@Server1 ansible]# ls
-ansible.cfg  hosts
-[root@Server1 ansible]# vim hosts
+`# ssh cloud_user@3.236.114.240`
 
-edit the file to include webservers 
+2. Access root
+
+`# sudo -i`
+
+3. Check ansible installation + edit hosts file 
+
+`# vim /etc/ansible/hosts`
+
+4. Edit the file to include webservers 
 
 ```
 [webservers]
@@ -24,72 +25,37 @@ DBServer1
 
 [admins]
 AdminServer1
+```
+5. Find or generate private key + save to file location
+
+`# ssh-keygen`
+
+6. Locate generated key and ssh-copy-id to servers. Start with WebServer1
+```
+`# ssh-copy-id ansible@WebServer1`
+Number of key(s) added: 1
+```
+7. Connect to DBServer1 and continue process
 
 ```
-
-[root@Server1 ~]# cd /root/.ssh/
-
-[root@Server1 .ssh]# ls -la
-
-total 12
-drwx------. 2 root root   61 Jun  7 09:44 .
-dr-xr-x---. 7 root root 4096 Jun  7 09:55 ..
--rw-------. 1 root root    0 Jun  7 09:42 authorized_keys
--rw-------. 1 root root 2602 Jun  7 09:44 id_rsa
--rw-r--r--. 1 root root  566 Jun  7 09:44 id_rsa.pub
-
-[root@Server1 .ssh]# ssh-copy-id ansible@WebServer1
-
-/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
-
-The authenticity of host 'webserver1 (10.0.0.41)' can't be established.
-ECDSA key fingerprint is SHA256: 
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-
-Password:
-
+`# ssh-copy-id ansible@DBServer1`
 Number of key(s) added: 1
+```
 
-[root@Server1 .ssh]# ssh-copy-id ansible@DBServer1
+8. Connect to AdminServer1 and finish process
 
-/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
-
-The authenticity of host 'dbserver1 (10.0.0.42)' can't be established.
-ECDSA key fingerprint is SHA256:
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-
-Password:
-
+```
+`# ssh-copy-id ansible@DAdminServer1`
 Number of key(s) added: 1
+```
 
-Now try logging into the machine, with:   "ssh 'ansible@DBServer1'"
-and check to make sure that only the key(s) you wanted were added.
+9. Try to ping the servers
 
-[root@Server1 .ssh]# ssh-copy-id ansible@AdminServer1
+`# ansible all -m ping --become`
 
-/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+Read JSON output
 
-The authenticity of host 'adminserver1 (10.0.0.43)' can't be established.
-ECDSA key fingerprint is SHA256:
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-
-Password:
-
-Number of key(s) added: 1
-
-Now try logging into the machine, with:   "ssh 'ansible@AdminServer1'"
-and check to make sure that only the key(s) you wanted were added.
-
-now try to ping the servers 
-
-[root@Server1 .ssh]# ansible all -m ping --become
-
+```
 WebServer1 | FAILED! => {
     "msg": "Missing sudo password"
 }
@@ -99,14 +65,21 @@ AdminServer1 | FAILED! => {
 DBServer1 | FAILED! => {
     "msg": "Missing sudo password"
 }
+```
 
-[root@Server1 .ssh]# ssh cloud_user@WebServer1
-Password:
-[cloud_user@WebServer1 ~]$ sudo visudo
-[sudo] password for cloud_user:
-edit sudoers by giving ansible access 
-exit 
+10. Troubleshoot by giving unrestricted access to servers via sudoers file
 
+```
+`# ssh cloud_user@WebServer1`
+`$ sudo visudo
+```
+
+11. Give access via: 
+
+```
+	name		ALL=(ALL)		NOPASSWD: ALL
+    
+```
 [cloud_user@WebServer1 ~]$ ssh cloud_user@44.212.96.76
 Password:
 [cloud_user@AdminServer1 ~]$ sudo visudo
