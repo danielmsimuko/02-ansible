@@ -1,8 +1,6 @@
-# RedHat Certified Engineer 8 - Ansible Notes
-
 ## installation
 
-Check python installation and verify
+Check python Installation and verify
 
     1. python3 -m pip V 
     2. sudo yum install python3
@@ -24,7 +22,7 @@ If ansible is already available on host, an upgrade is available
 
     4. python3 -m pip install --upgrade --user ansible
 
-## Commands
+## ad-hoc commands
 
 `$ ansible --version` allows you to check which ansible version you currently have 
 
