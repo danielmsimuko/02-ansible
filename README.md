@@ -18,7 +18,7 @@ With server builds defined by code, the speed of deployments go up.
 
 `$ ansible-config` command can be used to view configurations with `list` giving you all config options, `dump` dumping the config into the console and `view` to view the config
 
-#### Inventories
+### Inventories
 
 Inventory files are the files ansbile uses to locate and run against multiple hosts
 
@@ -100,17 +100,6 @@ Here is an example playbook to install and configure apache on a server
         permanent: yes
         state: enabled
   ```
-### More commands
-
-`$ ansible --version` allows you to check which ansible version you currently have 
-
-`$ sudo vim /etc/ansible/hosts` sets up the default ansible hosts file 
-
-`$ ansible all -m ping` connects to all servers in the inventory file. You should see success
-
-`$ ansible all --lists-hosts` shows us all the hosts in the all inventory 
-
-`$ ansible webservers --lists-hosts` shows you the hosts within the webservers group
 
 ## Documentation 
 
