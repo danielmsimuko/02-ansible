@@ -74,31 +74,20 @@ DBServer1 | FAILED! => {
 `$ sudo visudo
 ```
 
-11. Give access via: 
+11. Edit file by:
 
 ```
-	name		ALL=(ALL)		NOPASSWD: ALL
-    
+ansible		ALL=(ALL)		NOPASSWD: ALL
 ```
-[cloud_user@WebServer1 ~]$ ssh cloud_user@44.212.96.76
-Password:
-[cloud_user@AdminServer1 ~]$ sudo visudo
-[sudo] password for cloud_user:
-edit sudoers by giving ansible access
+12. Complete steps for AdminServer and DBServer1
 
-exit
-logout
-Connection to 44.212.96.76 closed.
-[cloud_user@DBServer1 ~]$ sudo visudo
-[sudo] password for cloud_user:
-[cloud_user@DBServer1 ~]$ exit
-logout
-Connection to 34.238.193.45 closed.
-[cloud_user@WebServer1 ~]$ exit
-logout
-Connection to webserver1 closed.
+13. Re-Run ping command to validate connection to nodes
 
-[root@Server1 .ssh]# ansible all -m ping --become
+`# ansible all -m ping --become`
+
+14. Validate successful ping from JSON output
+
+```
 AdminServer1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
@@ -120,4 +109,4 @@ DBServer1 | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
-[root@Server1 .ssh]#
+```
