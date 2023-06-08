@@ -1,6 +1,6 @@
-## installation
+## Installation
 
-Check python Installation and verify
+Check python installation and verify
 
     1. python3 -m pip V 
     2. sudo yum install python3
