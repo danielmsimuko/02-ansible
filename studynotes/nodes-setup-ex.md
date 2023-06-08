@@ -16,6 +16,7 @@ These are the steps I followed:
 `# vim /etc/ansible/hosts`
 
 4. Edit the file to include nodes 
+
 ```
 [webservers]
 WebServer1
@@ -26,25 +27,32 @@ DBServer1
 [admins]
 AdminServer1
 ```
+
 5. Find or generate private key + save to file location
 
 `# ssh-keygen`
 
 6. Locate generated key and ssh-copy-id to servers. Start with WebServer1
+
 ```
 `# ssh-copy-id ansible@WebServer1`
 Number of key(s) added: 1
 ```
+
 7. Connect to DBServer1 and continue process
+
 ```
 `# ssh-copy-id ansible@DBServer1`
 Number of key(s) added: 1
 ```
+
 8. Connect to AdminServer1 and finish process
+
 ```
 `# ssh-copy-id ansible@DAdminServer1`
 Number of key(s) added: 1
 ```
+
 9. Try to ping the servers and read JSON output
 
 `# ansible all -m ping --become`
