@@ -1,12 +1,14 @@
 ## Modules and Playbooks 
 
-### Common Modules used by ansible
+### Common Modules
 
 * Ping: Validates a server is running 
-* Setup: Gather ansible facts
+
 * Yum: Package manager
 
 `$ ansible (hostname) -b -m yum -a "name=httpd state=latest"` installs the httpd service
+
+* Setup: Gather ansible facts
 
 * Service: Controls services on remote host
 
@@ -19,3 +21,28 @@
 * Copy: copies file to a remote host with src, dest, owner, group and mode 
 
 `$ ansible (hosts) -b -m copy -a "src=/dir/dir/filename dest=/dir/dir owner=username group=grpname mode=0644"` copies a file to remote host
+
+* File: manages files and directories with params: path, state, owner, group, mode
+
+* Git: interact with git repos with params: repo, dest, clone 
+
+Lastly when we run ansible command without a module present i.e `$ ansible (hosts) -b -a "ls -l /home/ansible"` it just runs the same way a linux command will run
+
+### Register results of a running command 
+
+When running a command, the results can be stored as a variable to be referenced by other tasks/
+```
+---
+- hosts: hostname
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/testfile
+        state: touch
+      register: variable
+      
+    - name: display debug message
+      debug: msg="Register output is {{ variable }}"
+```
+
+
