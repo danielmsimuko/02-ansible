@@ -1,0 +1,25 @@
+---
+- hosts: dbservers
+  become: yes
+  tasks:
+    - name: install postgresql
+      yum : 
+        name: postgresql-server
+        state: latest
+    - name: initilise db cluster
+      command: /usr/bin/postgresql-setup --initdb
+    - name: create users
+      users: 
+        name: "{{ item }}"
+        groups: postgres
+      loop: 
+        - name1
+        - name2
+    - name: start and enable postgres
+      service: 
+        name: postgresql
+        state: started
+        enabled: yes
+        
+        
+    
