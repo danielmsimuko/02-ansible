@@ -79,7 +79,6 @@ Example of a handler which would be updating the apache httpd.conf file then not
 
 Another example of this is using the when statement which allows for a task to be skipped or run if certain conditions are met. Muiltiple conditions can be specified as a list and mathematical operation comparisons can also be used. 
 
-
 ```
 --- 
 - hosts: (hostname)
@@ -91,5 +90,42 @@ Another example of this is using the when statement which allows for a task to b
         dest:/var/www/html/index.html 
       when: ansible_hostname == "target_hostname"
 ```
+And another example is when loops can be used within a playbook to iterate over a simple list of hashes, dictionaries or lists. When statements are processed separately for each item in a loop.  The playbook below 
+
+```
+--- 
+- hosts: (hostname)
+  become: yes
+  tasks: 
+    - name: create a list of users
+      user:
+        name: "{{ item }}"
+        state: present
+        groups: (groupname)
+      loop:
+        - (daniel)
+        - (nathaniel)
+        - (daniella)
+```
+
+### Error Handling 
+
+You can ignore errors within playbooks by using keyword `ignore_errors`. This can help continue the playbook if the error is not critical to other tasks. Failure conditions can be defined by using `failed_when` keyword.
+
+To abort tasks where any errors are crucial, you can use `any_errors_fatal` keyword. 
+
+The example below ignores any errors that arises and copies finishes the playbook. 
+
+```
+--- 
+- hosts: (hostname)
+  tasks: 
+    - name: copy remote file
+      fetch:
+        src:/home/user/index.html 
+        dest:/home/user
+      ignore_errors: yes
+```
+
 
 
