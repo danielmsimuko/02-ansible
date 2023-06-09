@@ -1,0 +1,31 @@
+---
+- hosts: hosts
+  become: yes 
+  tasks: 
+    - name: install apache
+      yum: 
+        name: httpd 
+        state: latest 
+    - name: create users and add them to apache group
+      user:
+        name: "{{ item }}"
+        groups: apache
+      loop:
+        - name1 
+        - name2
+    - name: create index.html
+      template: 
+        src: /host/directory/user/filename
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache 
+        mode: 0644
+    - name: start and enable httpd 
+      service: 
+        name: httpd
+        state: started
+        enabled: yes 
+        
+          
+        
+                    
