@@ -30,7 +30,7 @@ Lastly when we run ansible command without a module present i.e `$ ansible (host
 
 ### Register results of a running command 
 
-When running a command, the results can be stored as a variable to be referenced by other tasks/
+When running a command, the results can be stored as a variable to be referenced by other tasks. e.g playbook register.yml. Return values differ from module to module 
 ```
 ---
 - hosts: hostname
@@ -43,6 +43,13 @@ When running a command, the results can be stored as a variable to be referenced
       
     - name: display debug message
       debug: msg="Register output is {{ variable }}"
+      
+    - name: edit file 
+      lineinfile:
+        path: /tmp/testFile
+        line: "the uid is {{variable.uid}} and gid is {{variable.gid}}"
 ```
+when run using cmd `$ ansible-playbook playbooks/register.yml` you can see the output and the gid and uid values can then be referenced in another file 
+
 
 
