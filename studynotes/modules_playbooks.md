@@ -51,5 +51,34 @@ When running a command, the results can be stored as a variable to be referenced
 ```
 when run using cmd `$ ansible-playbook playbooks/register.yml` you can see the output and the gid and uid values can then be referenced in another file 
 
+### Handlers 
+
+Take action when called/when change is made. Multiple handlers have multiple tasks but regardless of how many tasks notify a handler, it will only run once.
+
+Example of a handler: 
+
+```
+--- 
+- hosts: (hostname)
+  become: yes
+  tasks: 
+    - name: update http.conf
+      replace: 
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^ServerAdmin.*$'
+        replace: 'ServerAdmin cloud_user@localhost'
+        backup: yes 
+      notify: "restart web servers"
+  handlers:
+    - name: "restart apache"
+      service: 
+        name: httpd
+        state: restarted
+      listen: "restart web servers"
+```
+
+
+
+
 
 
