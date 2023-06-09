@@ -55,7 +55,7 @@ when run using cmd `$ ansible-playbook playbooks/register.yml` you can see the o
 
 Take action when called/when change is made. Multiple handlers have multiple tasks but regardless of how many tasks notify a handler, it will only run once.
 
-Example of a handler: 
+Example of a handler which would be updating the apache httpd.conf file then notify a handler that apache needs to be started so both can be completed within the same playbook
 
 ```
 --- 
@@ -77,8 +77,19 @@ Example of a handler:
       listen: "restart web servers"
 ```
 
+Another example of this is using the when statement which allows for a task to be skipped or run if certain conditions are met. Muiltiple conditions can be specified as a list and mathematical operation comparisons can also be used. 
 
 
-
+```
+--- 
+- hosts: (hostname)
+  become: yes
+  tasks: 
+    - name: copy file
+      copy:
+        src:/home/user/index.html 
+        dest:/var/www/html/index.html 
+      when: ansible_hostname == "target_hostname"
+```
 
 
