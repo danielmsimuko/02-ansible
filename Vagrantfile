@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     first.vm.box = "ubuntu/jammy64"
     first.vm.network "private_network", ip: "192.168.56.11"
     first.ssh.forward_agent = true
-    master.vm.provision "shell", inline: <<-SHELL
+    first.vm.provision "shell", inline: <<-SHELL
         sudo apt-get update
         sudo apt-get upgrade
     SHELL
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
     second.vm.box = "ubuntu/jammy64"
     second.vm.network "private_network", ip: "192.168.56.12"
     second.ssh.forward_agent = true
-    master.vm.provision "shell", inline: <<-SHELL
+    second.vm.provision "shell", inline: <<-SHELL
         sudo apt-get update
         sudo apt-get upgrade
     SHELL
