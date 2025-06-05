@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/jammy64"
+  config.vm.box = "ubuntu/jammy64" #mwrock/Windows2016
 
   config.vm.define "master" do |master|
     master.vm.network "private_network", ip: "192.168.56.10"
